@@ -1,0 +1,33 @@
+ 
+# 4 
+
+SELECT a.numeroID.concat_ws (" , a.nombres,a.apellidos) 
+as nommbre_completo from tbl_asesores a inner join tbl_clientes c on a.idAsesor()=c.aidAsesor
+where a.cantCliente= 0
+
+0707199020505
+
+
+# 5 
+
+SELECT c.nombrecompleto, f.idFactura,f.fechaEmision,f.fechaVencimiento 
+from tbl_clientes c inner join tbl_facturas f on c.idCliente=f.idcliente
+where day(f.fechaVencimiento) <10
+And month(f.fechavencimiento)=2
+and f.estado="PENDIENTE"
+
+
+# 6 
+
+start transation;
+set @idasesor=14,@idcliente=101;
+update tbl_clientes set idasesor=@idasesor 
+where idcliente=@idcliente;
+commit;
+
+star transation;
+set@idasesor=1,@idcliente=128
+update tbl_clientes set idasesor=@idasesor
+where idcliente=@idcliente;
+commit
+
