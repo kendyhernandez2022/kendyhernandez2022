@@ -1,0 +1,47 @@
+
+Delimiter // 
+drop procedure if exists sp_facturacion//
+create procedure sp_ facturacion 
+
+( in p_idproducto int,  in P_idfactura int,in p_cantidad int) 
+
+begin
+declare v_idproducto int;
+declare v_idfactura int;
+declare v_cantidad int;
+declare v_saldounidades int;
+declare v_isv decimal (12,2);
+declare v_costo decimal (12,2);
+declare v_precio_venta decimal (12,2);
+declare v_cantidad _producto decimal (12,2)
+declare v_subtotal decimal (12,2)
+declare v_totalpagar(12,2)
+
+
+set v_producto =p_idproducto;
+set v_idfactura =p_idfactura;
+set v_isv= 0.15;
+set v_costo=(select costo from tbl_producto where idproducto=v_idproducto);
+set v_precio_venta =v_costo+(v_costo *v_isv);
+set v_saldounidades=(select saldoUnidades from tbl_productos where idproducto =v_idproducto);
+set v_cantidad =p_cantidad);
+set cantidad_productos=(select sum(cantidad)from tbl_producto_facturado where idfactura=v_idfactura)
+
+if v_cantidad>= v_saldounidades then 
+insert into tbl_productos_facturados (idproducto,idfactura, cantidad, impuestosobreventa,precioVenta)
+values (v_idproductos,v_idfactura,v_cantidad,v_ins,v_precio_venta);
+
+update tbl_productos set saldoUnidades =(v_saldoUnidades −v_cantidad)
+where  idproducto=v_producto=v_producto;
+
+update tbl_facturas set cantidadproducto=v_cantidad_productos,
+
+subtotalpagar=v_subtotal,totalpagar=v,pagar
+where idfactura=v_factura;
+end if;
+end //
+
+
+
+
+
